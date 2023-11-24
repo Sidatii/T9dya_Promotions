@@ -22,7 +22,8 @@ public class Category {
     @Column(name = "name")
     private String Name;
     @OneToMany
-    private List<Product> product;
+    @ToString.Exclude
+    private List<Product> products;
 
     @Override
     public final boolean equals(Object o) {

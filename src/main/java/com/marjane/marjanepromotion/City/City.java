@@ -1,34 +1,26 @@
-package com.marjane.marjanepromotion.Product;
+package com.marjane.marjanepromotion.City;
 
-import com.marjane.marjanepromotion.Category.Category;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.util.Objects;
 
+@Entity
+@Table(name = "city")
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-//@AllArgsConstructor
-//@NoArgsConstructor
-@Entity
-@Table(name = "product")
-public class Product {
+@AllArgsConstructor
+public class City {
     @Id
-    @SequenceGenerator(name = "id", allocationSize = 1, sequenceName = "product_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_id")
+    @SequenceGenerator(name = "id", allocationSize = 1, sequenceName = "city_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "city_id")
     @Column(name = "id", nullable = false)
     private Long Id;
     @Column(name = "name", nullable = false)
-    private String name;
-    @Column(name = "quantity")
-    private int Quantity;
-    @Column(name = "price", nullable = false)
-    private Double Price;
-    @ManyToOne
-    private Category category;
+    private String Name;
 
     @Override
     public final boolean equals(Object o) {
@@ -37,8 +29,8 @@ public class Product {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Product product = (Product) o;
-        return getId() != null && Objects.equals(getId(), product.getId());
+        City city = (City) o;
+        return getId() != null && Objects.equals(getId(), city.getId());
     }
 
     @Override
