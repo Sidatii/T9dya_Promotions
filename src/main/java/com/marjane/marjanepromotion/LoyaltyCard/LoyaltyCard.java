@@ -1,9 +1,13 @@
 package com.marjane.marjanepromotion.LoyaltyCard;
 
+import com.marjane.marjanepromotion.Client.Client;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -20,6 +24,14 @@ public class LoyaltyCard {
     private Long Id;
     @Column(name = "total")
     private Double Total;
+    @OneToOne(targetEntity = Client.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Client client;
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private Date CreatedAt;
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private Date UpdatedAt;
 
     @Override
     public final boolean equals(Object o) {

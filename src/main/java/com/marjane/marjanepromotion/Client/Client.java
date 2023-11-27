@@ -1,9 +1,8 @@
 package com.marjane.marjanepromotion.Client;
 
+import com.marjane.marjanepromotion.LoyaltyCard.LoyaltyCard;
 import com.marjane.marjanepromotion.Person.Person;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -13,6 +12,8 @@ import lombok.*;
 @Setter
 @ToString
 public class Client extends Person {
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = LoyaltyCard.class, cascade = CascadeType.ALL)
+    private LoyaltyCard loyaltyCard;
 
 
 }

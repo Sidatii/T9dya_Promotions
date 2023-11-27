@@ -1,10 +1,12 @@
 package com.marjane.marjanepromotion.LineResponsible;
 
+import com.marjane.marjanepromotion.Category.Category;
 import com.marjane.marjanepromotion.Person.Person;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Date;
+
 @Entity
 @Table(name = "line_responsible")
 @Setter
@@ -12,5 +14,8 @@ import lombok.*;
 @ToString
 @DiscriminatorValue("LineResponsible")
 public class LineResponsible extends Person {
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Category.class)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
 }

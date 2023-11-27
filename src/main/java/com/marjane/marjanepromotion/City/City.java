@@ -1,9 +1,15 @@
 package com.marjane.marjanepromotion.City;
 
+import com.marjane.marjanepromotion.Center.Center;
+import com.marjane.marjanepromotion.SuperAdmin.SuperAdmin;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -21,6 +27,20 @@ public class City {
     private Long Id;
     @Column(name = "name", nullable = false)
     private String Name;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = SuperAdmin.class)
+    @JoinColumn(name = "super_admin_id")
+    private SuperAdmin superAdmin;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Center.class)
+    @ToString.Exclude
+    private List<Center> center;
+
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private Date CreatedAt;
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private Date UpdatedAt;
 
     @Override
     public final boolean equals(Object o) {

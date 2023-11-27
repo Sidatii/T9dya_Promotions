@@ -1,6 +1,7 @@
 package com.marjane.marjanepromotion.Admin;
 
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class AdminController {
 
 
     @PostMapping
-    public void addStudent(@Valid @RequestBody Admin admin) {
+    public void addAdmin(@Valid @RequestBody Admin admin) {
         service.AddAdmin(admin);
     }
 
