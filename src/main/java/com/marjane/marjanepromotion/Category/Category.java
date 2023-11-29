@@ -1,17 +1,13 @@
 package com.marjane.marjanepromotion.Category;
 
-import com.marjane.marjanepromotion.ApplicablePromotions;
-import com.marjane.marjanepromotion.LineResponsible.LineResponsible;
+import com.marjane.marjanepromotion.ApplicablePromotions.ApplicablePromotions;
 import com.marjane.marjanepromotion.Product.Product;
-import com.marjane.marjanepromotion.Promotion.Promotion;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.CurrentTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -30,14 +26,12 @@ public class Category {
 
     @Column(name = "name")
     private String Name;
-
     @ToString.Exclude
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> products;
     @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ToString.Exclude
     private List<ApplicablePromotions> applicablePromotions;
-//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    private LineResponsible lineResponsible;
 
     @Column(name = "created_at")
     @CreationTimestamp

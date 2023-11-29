@@ -1,53 +1,43 @@
-package com.marjane.marjanepromotion.Product;
+package com.marjane.marjanepromotion.ApplicablePromotions;
 
-import com.marjane.marjanepromotion.ApplicablePromotions.ApplicablePromotions;
 import com.marjane.marjanepromotion.Category.Category;
+import com.marjane.marjanepromotion.Product.Product;
+import com.marjane.marjanepromotion.Promotion.Promotion;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-//@AllArgsConstructor
-//@NoArgsConstructor
-@Entity
-@Table(name = "product")
-public class Product {
+@Entity(name = "ApplicablePromotions")
+@Table(name = "applicable_promotions")
+public class ApplicablePromotions {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
+    @SequenceGenerator(name = "id", sequenceName = "applicable_promotions_id", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "applicable_promotions_id")
     private Long Id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "promotion_id")
+    private Promotion promotion;
 
-    @Column(name = "quantity")
-    private int Quantity;
-
-    @Column(name = "price", nullable = false)
-    private Double Price;
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Category.class)
-//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<ApplicablePromotions> applicablePromotions;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @Column(name = "created_at")
     @CreationTimestamp
     private Date CreatedAt;
-    @Column(name = "updated_at")
-    @UpdateTimestamp
-    private Date UpdatedAt;
 
     @Override
     public final boolean equals(Object o) {
@@ -56,8 +46,8 @@ public class Product {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Product product = (Product) o;
-        return getId() != null && Objects.equals(getId(), product.getId());
+        ApplicablePromotions that = (ApplicablePromotions) o;
+        return getId() != null && Objects.equals(getId(), that.getId());
     }
 
     @Override
