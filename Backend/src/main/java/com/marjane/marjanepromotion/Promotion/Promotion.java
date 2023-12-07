@@ -7,8 +7,12 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.sql.Time;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Entity
 @Table(name = "promotion")
@@ -30,7 +34,14 @@ public class Promotion {
     private Status Status;
 
     @OneToMany(mappedBy = "promotion", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ToString.Exclude
     private List<ApplicablePromotions> applicablePromotions;
+
+    @Column(name = "expiry_date")
+    private Date Expiry;
+
+    @Transient
+    private int Validity;
 
     @Column(name = "created_at")
     @CreationTimestamp
@@ -38,4 +49,10 @@ public class Promotion {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private Date UpdatedAt;
+
+    public int getValidity(){
+        long diff = this.Expiry.getTime() - this.CreatedAt.getTime();
+        return (int) TimeUnit.MILLISECONDS.toDays(diff);
+
+    }
 }
