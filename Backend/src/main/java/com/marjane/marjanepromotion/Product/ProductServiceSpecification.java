@@ -4,6 +4,8 @@ import com.marjane.marjanepromotion.Product.DTO.ProductRequestDTO;
 import com.marjane.marjanepromotion.Product.DTO.ProductResponseDTO;
 import com.marjane.marjanepromotion.Promotion.DTO.PromotionRequestDTO;
 import com.marjane.marjanepromotion.Promotion.DTO.PromotionResponseDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ public interface ProductServiceSpecification {
 
     ProductResponseDTO getProduct(Long productId);
 
-    List<ProductResponseDTO> getProducts();
+    Page<ProductResponseDTO> getProducts(Pageable pageable);
 
     ProductResponseDTO updateProduct(Long id, ProductRequestDTO productRequestDTO);
 

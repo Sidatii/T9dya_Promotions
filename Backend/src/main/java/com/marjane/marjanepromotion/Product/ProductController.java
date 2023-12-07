@@ -1,10 +1,9 @@
 package com.marjane.marjanepromotion.Product;
-
-import com.marjane.marjanepromotion.ApplicablePromotions.DTO.ApplicablePromotionsRequestDTO;
-import com.marjane.marjanepromotion.ApplicablePromotions.DTO.ApplicablePromotionsResponseDTO;
 import com.marjane.marjanepromotion.Product.DTO.ProductRequestDTO;
 import com.marjane.marjanepromotion.Product.DTO.ProductResponseDTO;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +18,8 @@ public class ProductController {
     }
 
     @GetMapping(path = "/all")
-    public List<ProductResponseDTO>  GetProductList(){
-        return productService.getProducts();
+    public Page<ProductResponseDTO> GetProductList(Pageable pageable){
+        return productService.getProducts(pageable);
     }
 
     @PostMapping(path = "/create")

@@ -6,6 +6,7 @@ import com.marjane.marjanepromotion.Exceptions.ResourceNotFoundException;
 import com.marjane.marjanepromotion.Product.DTO.ProductRequestDTO;
 import com.marjane.marjanepromotion.Product.DTO.ProductResponseDTO;
 import com.marjane.marjanepromotion.Promotion.DTO.PromotionResponseDTO;
+import com.marjane.marjanepromotion.Promotion.Promotion;
 import com.marjane.marjanepromotion.Promotion.PromotionRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +14,9 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -40,10 +44,8 @@ public class ProductService implements ProductServiceSpecification{
     }
 
     @Override
-    public List<ProductResponseDTO> getProducts() {
-        return productRepository.findAll().stream()
-                .map(product -> mapper.map(product, ProductResponseDTO.class))
-                .toList();
+    public Page<ProductResponseDTO> getProducts(Pageable pageable) {
+        return productRepository.findAll(pageable).map(product -> mapper.map(product, ProductResponseDTO.class));
     }
 
     @Override

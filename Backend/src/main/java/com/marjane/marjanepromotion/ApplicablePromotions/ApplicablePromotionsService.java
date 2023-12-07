@@ -12,6 +12,8 @@ import com.marjane.marjanepromotion.Promotion.Promotion;
 import com.marjane.marjanepromotion.Promotion.PromotionRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,10 +53,9 @@ public class ApplicablePromotionsService implements ApplicablePromotionsSpecific
     }
 
     @Override
-    public List<ApplicablePromotionsResponseDTO> getApplicablePromotions() {
-        return applicablePromotionsRepository.findAll().stream().
-                map(applicablePromotions -> modelMapper.map(applicablePromotions, ApplicablePromotionsResponseDTO.class)).
-                toList();
+    public Page<ApplicablePromotionsResponseDTO> getApplicablePromotions(Pageable pageable) {
+        return applicablePromotionsRepository.findAll(pageable).
+                map(applicablePromotions -> modelMapper.map(applicablePromotions, ApplicablePromotionsResponseDTO.class));
     }
 
     @Override

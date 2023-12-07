@@ -4,6 +4,8 @@ import com.marjane.marjanepromotion.ApplicablePromotions.DTO.ApplicablePromotion
 import com.marjane.marjanepromotion.ApplicablePromotions.DTO.ApplicablePromotionsResponseDTO;
 import com.marjane.marjanepromotion.Category.DTO.CategoryRequestDTO;
 import com.marjane.marjanepromotion.Category.DTO.CategoryResponseDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ public interface ApplicablePromotionsSpecifications {
 
     ApplicablePromotionsResponseDTO getApplicablePromotion(Long applicablePromotionsId);
 
-    List<ApplicablePromotionsResponseDTO> getApplicablePromotions();
+    Page<ApplicablePromotionsResponseDTO> getApplicablePromotions(Pageable pageable);
 
     ApplicablePromotionsResponseDTO updateApplicablePromotion(Long id, ApplicablePromotionsRequestDTO applicablePromotionsRequestDTO);
 

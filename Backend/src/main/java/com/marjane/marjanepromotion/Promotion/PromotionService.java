@@ -8,6 +8,8 @@ import com.marjane.marjanepromotion.Promotion.DTO.PromotionResponseDTO;
 import com.marjane.marjanepromotion.ServiceSpecification.ServiceSpecification;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,10 +34,9 @@ public class PromotionService implements ServiceSpecification<PromotionResponseD
     }
 
     @Override
-    public List<PromotionResponseDTO> getAll() {
-        return promotionRepository.findAll().stream().
-                map(promotion -> mapper.map(promotion, PromotionResponseDTO.class)).
-                toList();
+    public Page<PromotionResponseDTO> getAll(Pageable pageable) {
+        return promotionRepository.findAll(pageable).
+                map(promotion -> mapper.map(promotion, PromotionResponseDTO.class));
     }
 
     @Override

@@ -23,18 +23,18 @@ public class MarjanePromotionApplication {
     public static void main(String[] args) {
         SpringApplication.run(MarjanePromotionApplication.class, args);
     }
-    @Bean
-    CommandLineRunner commandLineRunner(CategoryRepository categoryRepository, ProductRepository productRepository){
-        return args -> {
-//            CategoryDataFaker(categoryRepository);
-//            ProductDataFaker(productRepository, categoryRepository);
-//            CenterDataFaker(centerRepository);
-//            AdminDataFaker(adminRepository);
-//            PageRequest pageRequest = PageRequest.of(0, 10);
-//            Page<Admin> page = adminRepository.findAll(pageRequest);
-//            System.out.println(page);
-        };
-    }
+//    @Bean
+//    CommandLineRunner commandLineRunner(CategoryRepository categoryRepository, ProductRepository productRepository){
+//        return args -> {
+////            CategoryDataFaker(categoryRepository);
+////            ProductDataFaker(productRepository, categoryRepository);
+////            CenterDataFaker(centerRepository);
+////            AdminDataFaker(adminRepository);
+////            PageRequest pageRequest = PageRequest.of(0, 10);
+////            Page<Admin> page = adminRepository.findAll(pageRequest);
+////            System.out.println(page);
+//        };
+//    }
 
     public void AdminDataFaker(AdminRepository adminRepository){
         Faker faker = new Faker();
