@@ -21,4 +21,5 @@ public class PromotionResponseDTO {
     private List<ApplicablePromotionsSimpleDTO> applicablePromotions;
     private Date CreatedAt;
     private Date UpdatedAt;
+    private Date Expiry;
 }

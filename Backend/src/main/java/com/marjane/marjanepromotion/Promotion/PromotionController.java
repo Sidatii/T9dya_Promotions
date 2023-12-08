@@ -30,4 +30,9 @@ public class PromotionController {
     public Page<PromotionResponseDTO> getPromotions(Pageable pageable){
         return promotionService.getAll(pageable);
     }
+
+    @PostMapping(path = "/{promotionId}")
+    public PromotionResponseDTO updatePromotion(@PathVariable("promotionId") Long promotionId, @RequestBody @Valid PromotionRequestDTO promotionRequestDTO){
+        return promotionService.update(promotionId, promotionRequestDTO);
+    }
 }

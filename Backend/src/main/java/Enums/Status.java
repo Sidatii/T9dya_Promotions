@@ -1,7 +1,7 @@
 package Enums;
 
 public enum Status {
-    WAITING,
+    PENDING,
     APPROVED,
     REJECTED
 }
