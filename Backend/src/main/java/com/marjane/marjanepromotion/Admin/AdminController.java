@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/v1/admin")
@@ -30,5 +31,10 @@ public class AdminController {
     public void deletAdmin(@PathVariable("adminId") Long adminId) {
         Admin admin = service.getAdmin(adminId);
         service.deletAdmin(admin);
+    }
+
+    @PostMapping("/login")
+    public Optional<Admin> login(String email, String password){
+        return service.login(email, password);
     }
 }

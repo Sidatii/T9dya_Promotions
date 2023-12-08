@@ -48,4 +48,9 @@ public class PromotionService implements ServiceSpecification<PromotionResponseD
     public PromotionResponseDTO delete(Long id) {
         return null;
     }
+
+    public PromotionResponseDTO getPromotion(Long promotionId) {
+        Promotion promotion = promotionRepository.findById(promotionId).orElseThrow(() -> new IllegalStateException("Promotion with id " + promotionId + " does not exists"));
+        return mapper.map(promotion, PromotionResponseDTO.class);
+    }
 }

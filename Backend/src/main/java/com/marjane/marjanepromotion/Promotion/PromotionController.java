@@ -13,9 +13,14 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api/v1/promotions")
 @AllArgsConstructor
+@CrossOrigin("*")
 public class PromotionController {
     private PromotionService promotionService;
 
+    @GetMapping(path = "/{promotionId}")
+    public PromotionResponseDTO getPromotion(@PathVariable("promotionId") Long promotionId){
+        return promotionService.getPromotion(promotionId);
+    }
     @PostMapping(path = "/create")
     public PromotionResponseDTO AddPromotion(@RequestBody @Valid PromotionRequestDTO promotionRequestDTO){
         return promotionService.add(promotionRequestDTO);
