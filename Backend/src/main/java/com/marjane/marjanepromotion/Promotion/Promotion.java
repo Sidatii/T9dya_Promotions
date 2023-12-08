@@ -29,8 +29,7 @@ public class Promotion {
     private Long Id;
     @Column(name = "rate", nullable = false, precision = 2)
     private Double Rate;
-    @Column(name = "status", nullable = false)
-    @Enumerated
+    @Column(name = "status", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'defaultValue'")
     private Status Status;
 
     @OneToMany(mappedBy = "promotion", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
