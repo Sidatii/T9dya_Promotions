@@ -1,5 +1,6 @@
 package com.marjane.marjanepromotion.Promotion;
 
+import Enums.Status;
 import com.marjane.marjanepromotion.Category.DTO.CategoryResponseDTO;
 import com.marjane.marjanepromotion.Product.DTO.ProductRequestDTO;
 import com.marjane.marjanepromotion.Product.DTO.ProductResponseDTO;
@@ -41,11 +42,21 @@ public class PromotionService implements ServiceSpecification<PromotionResponseD
 
     @Override
     public PromotionResponseDTO update(Long id, PromotionRequestDTO promotionRequestDTO) {
-        return null;
+        return promotionRepository.findById(id).map(promotion -> {
+            promotion.setRate(promotionRequestDTO.getRate());
+            promotion.setExpiry(promotionRequestDTO.getExpiry());
+            promotion.setStatus(Status.PENDING);
+            return mapper.map(promotionRepository.save(promotion), PromotionResponseDTO.class);
+        }).orElseThrow(() -> new IllegalStateException("Promotion with id " + id + " does not exists"));
     }
 
     @Override
     public PromotionResponseDTO delete(Long id) {
         return null;
+    }
+
+    public PromotionResponseDTO getPromotion(Long promotionId) {
+        Promotion promotion = promotionRepository.findById(promotionId).orElseThrow(() -> new IllegalStateException("Promotion with id " + promotionId + " does not exists"));
+        return mapper.map(promotion, PromotionResponseDTO.class);
     }
 }

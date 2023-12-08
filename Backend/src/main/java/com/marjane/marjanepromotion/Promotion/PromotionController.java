@@ -13,9 +13,14 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api/v1/promotions")
 @AllArgsConstructor
+@CrossOrigin("*")
 public class PromotionController {
     private PromotionService promotionService;
 
+    @GetMapping(path = "/{promotionId}")
+    public PromotionResponseDTO getPromotion(@PathVariable("promotionId") Long promotionId){
+        return promotionService.getPromotion(promotionId);
+    }
     @PostMapping(path = "/create")
     public PromotionResponseDTO AddPromotion(@RequestBody @Valid PromotionRequestDTO promotionRequestDTO){
         return promotionService.add(promotionRequestDTO);
@@ -24,5 +29,10 @@ public class PromotionController {
     @GetMapping(path = "/all")
     public Page<PromotionResponseDTO> getPromotions(Pageable pageable){
         return promotionService.getAll(pageable);
+    }
+
+    @PostMapping(path = "/{promotionId}")
+    public PromotionResponseDTO updatePromotion(@PathVariable("promotionId") Long promotionId, @RequestBody @Valid PromotionRequestDTO promotionRequestDTO){
+        return promotionService.update(promotionId, promotionRequestDTO);
     }
 }

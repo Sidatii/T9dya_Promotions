@@ -3,14 +3,11 @@ package com.marjane.marjanepromotion.Admin;
 //import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
+@Repository
+@SuppressWarnings("unused")
 public interface AdminRepository extends JpaRepository<Admin, Long> {
-//    @Query("" +
-//            "SELECT CASE WHEN COUNT(a) > 0 THEN " +
-//            "TRUE ELSE FALSE END " +
-//            "FROM admin a " +
-//            "WHERE a.email = ?1"
-//    )
+//    Admin findAdminByEmailAndPassword(String email, String password);
 //    Boolean selectExistsEmail(String email);
 }
